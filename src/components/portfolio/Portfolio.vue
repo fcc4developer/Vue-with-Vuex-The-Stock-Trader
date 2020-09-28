@@ -1,8 +1,28 @@
 <template>
-  <h1>Portfolio</h1>
+  <div class="container">
+    <div class="row">
+      <app-stock v-for="stock in stocks" :key="stock.id" :stock="stock"></app-stock>
+    </div>
+  </div>
 </template>
+
+<script>
+  import Stock from './Stock';
+
+  export default {
+    components: {
+        appStock: Stock
+    },
+    computed: {
+      stocks() {
+        return this.$store.getters.stockPortfolio;
+      }
+    }
+  }
+</script>
+
 <style scoped>
-  h1 {
-    padding: 30px
+  .row {
+    padding: 30px;
   }
 </style>
