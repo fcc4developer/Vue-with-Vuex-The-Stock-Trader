@@ -16,7 +16,7 @@
     <strong class="navbar-text ml-auto">Funds: {{ funds | currency }}</strong>
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <a class="nav-link">End Day</a>
+        <a class="nav-link" @click="endDay">End Day</a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -34,13 +34,21 @@
 </template>
 
 <script>
+  import {mapActions} from 'vuex';
+
   export default {
     computed: {
       funds() {
         return this.$store.getters.funds;
       }
-    }  }
+    },
+    methods: {
+      ...mapActions([
+        'randomizeStocks'
+      ]),
+      endDay() {
+        this.randomizeStocks();
+      }
+    }
+  }
 </script>
-
-<style>
-</style>

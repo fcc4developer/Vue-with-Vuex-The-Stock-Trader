@@ -7,8 +7,8 @@ import portfolio from './modules/portfolio';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-    modules: {
-        stocks,
-        portfolio
-    }
+  modules: {
+    stocks,
+    portfolio
+  }
 });

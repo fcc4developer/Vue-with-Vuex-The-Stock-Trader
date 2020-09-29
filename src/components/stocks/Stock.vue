@@ -1,29 +1,29 @@
 <template>
   <div class="col-sm-6 col-md-6">
     <div class="card text-white">
-        <div class="card-header bg-info">
-            <h5 class="card-title pt-2">{{ stock.name }}
-              <small class="card-text">(Price: {{ stock.price }})</small>
-            </h5>
+      <div class="card-header bg-info">
+        <h5 class="card-title pt-2">{{ stock.name }}
+          <small class="card-text">(Price: {{ stock.price }})</small>
+        </h5>
+      </div>
+      <div class="card-body">
+        <div class="float-left">
+          <input
+            type="number"
+            class="form-control"
+            placeholder="Quantity"
+            v-model="quantity"
+            :class="{danger: insufficientFunds}"
+            >
         </div>
-        <div class="card-body">
-          <div class="float-left">
-              <input
-                type="number"
-                class="form-control"
-                placeholder="Quantity"
-                v-model="quantity"
-                :class="{danger: insufficientFunds}"
-                >
-          </div>
-          <div class="float-right">
-              <button
-                class="btn btn-success"
-                @click="buyStock"
-                :disabled="insufficientFunds || quantity <= 0"
-                >{{ insufficientFunds ? 'Not enough founds' : 'Buy'}}</button>
-          </div>
+        <div class="float-right">
+          <button
+            class="btn btn-success"
+            @click="buyStock"
+            :disabled="insufficientFunds || quantity <= 0"
+            >{{ insufficientFunds ? 'Not enough founds' : 'Buy'}}</button>
         </div>
+      </div>
     </div>
   </div>
 </template>
