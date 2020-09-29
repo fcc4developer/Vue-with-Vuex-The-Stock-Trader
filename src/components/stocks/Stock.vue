@@ -1,5 +1,5 @@
 <template>
-  <div class="col-sm-6 col-md-4">
+  <div class="col-sm-6 col-md-6">
     <div class="card text-white">
         <div class="card-header bg-info">
             <h5 class="card-title pt-2">{{ stock.name }}
@@ -13,14 +13,15 @@
                 class="form-control"
                 placeholder="Quantity"
                 v-model="quantity"
+                :class="{danger: insufficientFunds}"
                 >
           </div>
           <div class="float-right">
               <button
                 class="btn btn-success"
                 @click="buyStock"
-                :disabled="quantity <= 0"
-                >Buy</button>
+                :disabled="insufficientFunds || quantity <= 0"
+                >{{ insufficientFunds ? 'Not enough founds' : 'Buy'}}</button>
           </div>
         </div>
     </div>
@@ -33,6 +34,14 @@
     data() {
       return {
         quantity: 0
+      }
+    },
+    computed: {
+      funds() {
+        return this.$store.getters.funds;
+      },
+      insufficientFunds() {
+        return this.quantity * this.stock.price > this.funds;
       }
     },
     methods: {
@@ -50,4 +59,7 @@
 </script>
 
 <style scoped>
+  .danger {
+    border: 1px red solid;
+  }
 </style>

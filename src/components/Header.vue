@@ -13,6 +13,7 @@
         <a class="nav-link">Stocks</a>
       </router-link>
     </ul>
+    <strong class="navbar-text ml-auto">Funds: {{ funds | currency }}</strong>
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
         <a class="nav-link">End Day</a>
@@ -33,6 +34,12 @@
 </template>
 
 <script>
+  export default {
+    computed: {
+      funds() {
+        return this.$store.getters.funds;
+      }
+    }  }
 </script>
 
 <style>
