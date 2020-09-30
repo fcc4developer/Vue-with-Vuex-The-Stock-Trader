@@ -18,13 +18,13 @@
       <li class="nav-item">
         <a class="nav-link" @click="endDay">End Day</a>
       </li>
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown" @click="isDropdownOpen = !isDropdownOpen">
         <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Save & Load
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Save Data</a>
-          <a class="dropdown-item" href="#">Load Data</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown" :class="{show: isDropdownOpen}">
+          <a class="dropdown-item" @click="onSaveData" href="#">Save Data</a>
+          <a class="dropdown-item" @click="onLoadData" href="#">Load Data</a>
         </div>
       </li>
     </ul>
@@ -37,6 +37,11 @@
   import {mapActions} from 'vuex';
 
   export default {
+    data() {
+      return {
+        isDropdownOpen: false
+      }
+    },
     computed: {
       funds() {
         return this.$store.getters.funds;
@@ -44,11 +49,29 @@
     },
     methods: {
       ...mapActions([
-        'randomizeStocks'
+        'randomizeStocks',
+        'loadData'
       ]),
       endDay() {
         this.randomizeStocks();
+      },
+      onSaveData() {
+        const data = {
+          funds: this.$store.getters.funds,
+          stockPortfolio: this.$store.getters.stockPortfolio,
+          stocks: this.$store.getters.stocks
+        }
+        this.$http.put('data.json', data);
+      },
+      onLoadData() {
+        this.loadData();
       }
     }
   }
 </script>
+
+<style scoped>
+  a {
+    cursor: pointer;
+  }
+</style>
